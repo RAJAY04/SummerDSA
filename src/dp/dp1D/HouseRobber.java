@@ -13,8 +13,8 @@ public class HouseRobber {
         int pick = 0;
         if(dp[n] != null)return dp[n];
         int skip = 0;
-        pick = dfs(nums,n - 2,dp) + nums[n];
-        skip = dfs(nums,n - 1,dp);
+        pick = memoization(nums,n - 2,dp) + nums[n];
+        skip = memoization(nums,n - 1,dp);
         return dp[n] = Math.max(pick,skip);
     }
     public static int tabulation(int[] nums){
