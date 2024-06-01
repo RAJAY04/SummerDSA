@@ -4,6 +4,17 @@ import java.util.*;
 import java.io.*;
 
 public class Main{
+    //public static void main(String[] args) {
+    //        Scanner scanner = new Scanner(System.in);
+    //        int testCases = scanner.nextInt(); // Read the number of test cases
+    //
+    //        while (testCases-- > 0) {
+    //            int n = scanner.nextInt(); // Read the value of n for each test case
+    //            System.out.println(1); // Print the result for each test case
+    //        }
+    //
+    //        scanner.close(); // Close the scanner to prevent resource leak
+    //    }
     static class FastReader{
         BufferedReader br;
         StringTokenizer st;
@@ -65,7 +76,9 @@ public class Main{
             FastWriter out = new FastWriter();
             int testCases=in.nextInt();
             while(testCases-- > 0){
-                // write code here
+                int n = in.nextInt();
+                //long fact = factorial(n);
+                out.println(1);
             }
             out.close();
         } catch (Exception e) {
@@ -73,3 +86,5 @@ public class Main{
         }
     }
 }
+
+
