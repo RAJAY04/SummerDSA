@@ -3,53 +3,49 @@ package CodeForces;
 import java.util.*;
 import java.io.*;
 
-public class Main{
-    //public static void main(String[] args) {
-    //        Scanner scanner = new Scanner(System.in);
-    //        int testCases = scanner.nextInt(); // Read the number of test cases
-    //
-    //        while (testCases-- > 0) {
-    //            int n = scanner.nextInt(); // Read the value of n for each test case
-    //            System.out.println(1); // Print the result for each test case
-    //        }
-    //
-    //        scanner.close(); // Close the scanner to prevent resource leak
-    //    }
-    static class FastReader{
+public class Main {
+    static class FastReader {
         BufferedReader br;
         StringTokenizer st;
-        public FastReader(){
-            br=new BufferedReader(new InputStreamReader(System.in));
+
+        public FastReader() {
+            br = new BufferedReader(new InputStreamReader(System.in));
         }
-        String next(){
-            while(st==null || !st.hasMoreTokens()){
+
+        String next() {
+            while (st == null || !st.hasMoreTokens()) {
                 try {
-                    st=new StringTokenizer(br.readLine());
+                    st = new StringTokenizer(br.readLine());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
             return st.nextToken();
         }
-        int nextInt(){
+
+        int nextInt() {
             return Integer.parseInt(next());
         }
-        long nextLong(){
+
+        long nextLong() {
             return Long.parseLong(next());
         }
-        double nextDouble(){
+
+        double nextDouble() {
             return Double.parseDouble(next());
         }
-        String nextLine(){
-            String str="";
+
+        String nextLine() {
+            String str = "";
             try {
-                str=br.readLine().trim();
+                str = br.readLine().trim();
             } catch (Exception e) {
                 e.printStackTrace();
             }
             return str;
         }
     }
+
     static class FastWriter {
         private final BufferedWriter bw;
 
@@ -70,21 +66,46 @@ public class Main{
             bw.close();
         }
     }
+
     public static void main(String[] args) {
         try {
-            FastReader in=new FastReader();
+            FastReader in = new FastReader();
             FastWriter out = new FastWriter();
-            int testCases=in.nextInt();
-            while(testCases-- > 0){
+            int testCases = in.nextInt();
+            while (testCases-- > 0) {
                 int n = in.nextInt();
-                //long fact = factorial(n);
-                out.println(1);
+                String s = in.next();
+                boolean flag = isValid(s, n);
+                if (flag) {
+                    out.println("YES");
+                } else {
+                    out.println("NO");
+                }
             }
             out.close();
         } catch (Exception e) {
             return;
         }
     }
+
+    public static boolean isValid(String s, int n) {
+        Set<Character> set = new HashSet<Character>();
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            if (set.contains(s.charAt(i))) {
+                count = 0;
+            } else {
+                count++;
+            }
+
+            if (count >= 4) return false;
+        }
+        return true;
+    }
 }
-
-
