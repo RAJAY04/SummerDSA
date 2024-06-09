@@ -1,4 +1,4 @@
-package Contests.Biweekly132;
+package LeetCodeContests.Biweekly132;
 
 public class ClearDigits {
     public static void main(String[] args) {

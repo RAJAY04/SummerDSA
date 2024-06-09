@@ -1,4 +1,4 @@
-package Contests.weekly400;
+package LeetCodeContests.weekly400;
 
 import java.util.ArrayList;
 import java.util.List;

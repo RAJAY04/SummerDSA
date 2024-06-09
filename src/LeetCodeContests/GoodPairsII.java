@@ -1,4 +1,4 @@
-package Contests;
+package LeetCodeContests;
 
 import java.util.HashMap;
 import java.util.Map;
