@@ -1,7 +1,9 @@
 package CodeForces;
-
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.StringTokenizer;
 
 public class Main {
     static class FastReader {
@@ -30,82 +32,30 @@ public class Main {
         long nextLong() {
             return Long.parseLong(next());
         }
-
-        double nextDouble() {
-            return Double.parseDouble(next());
-        }
-
-        String nextLine() {
-            String str = "";
-            try {
-                str = br.readLine().trim();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return str;
-        }
-    }
-
-    static class FastWriter {
-        private final BufferedWriter bw;
-
-        public FastWriter() {
-            this.bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        }
-
-        public void print(Object object) throws IOException {
-            bw.append("" + object);
-        }
-
-        public void println(Object object) throws IOException {
-            print(object);
-            bw.append("\n");
-        }
-
-        public void close() throws IOException {
-            bw.close();
-        }
     }
 
     public static void main(String[] args) {
-        try {
-            FastReader in = new FastReader();
-            FastWriter out = new FastWriter();
-            int testCases = in.nextInt();
-            while (testCases-- > 0) {
-                int n = in.nextInt();
-                String s = in.next();
-                boolean flag = isValid(s, n);
-                if (flag) {
-                    out.println("YES");
-                } else {
-                    out.println("NO");
-                }
+        FastReader in = new FastReader();
+        String t = in.next();
+        PrintWriter cout = new PrintWriter(System.out);
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < t.length(); i++) {
+            char c = Character.toLowerCase(t.charAt(i));
+            if (!isVowel(c)) {
+                sb.append('.');
+                sb.append(c);
             }
-            out.close();
-        } catch (Exception e) {
-            return;
         }
+
+        cout.println(sb.toString());
+        cout.flush();
+
     }
 
-    public static boolean isValid(String s, int n) {
-        Set<Character> set = new HashSet<Character>();
-        set.add('a');
-        set.add('e');
-        set.add('i');
-        set.add('o');
-        set.add('u');
-
-        int count = 0;
-        for (int i = 0; i < n; i++) {
-            if (set.contains(s.charAt(i))) {
-                count = 0;
-            } else {
-                count++;
-            }
-
-            if (count >= 4) return false;
-        }
-        return true;
+    public static boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u' || ch == 'y';
     }
 }
+
+
