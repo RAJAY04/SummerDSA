@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class LongestCommonSubsequence {
     public static void main(String[] args) {
-        String s1 = "abcde";
-        String s2 = "ace";
+        String s1 = "intention";
+        String s2 = "execution";
         System.out.println(longestCommonSubsequence(s1,s2));
         System.out.println(tabulation(s1,s2));
         System.out.println(spaceOptimisation(s1,s2));
