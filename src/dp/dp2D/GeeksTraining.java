@@ -7,7 +7,7 @@ public class GeeksTraining {
         System.out.println(tabulation(points,4));
     }
     public static int maximumPoints(int points[][],int N){
-        int[][] dp = new int[N][4];
+        int[][] dp = new int[N][4];//3 is enough
         for(int i = 0 ; i < N; i++){
             for(int j = 0 ; j < 3 ; j++){
                 dp[i][j] = -1;
@@ -27,7 +27,8 @@ public class GeeksTraining {
             return max;
         }
 
-        if(avoid != 3 && dp[n][avoid] != -1)return dp[n][avoid];
+        if(avoid != 3 && dp[n][avoid] != -1)return dp[n][avoid];//the problem was if i use -1 i though i was getting index out of bound
+        //but that was not in this line but in the last line were we are storing the value in dp[n][avoid]
         int max = 0 , point = 0;
         for(int i = 0 ; i < 3 ; i++){
             if(i == avoid)continue;
