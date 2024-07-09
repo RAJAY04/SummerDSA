@@ -7,9 +7,9 @@ public class TakingMaxEnergyFromMysticDungeon {
     public static void main(String[] args) {
         int[] energy = {1,2,3,4,5,6,7};
         int k = 3;
-        System.out.println(maximumEnergy(energy,k));
+        System.out.println(maximumEnergy1(energy,k));
     }
-    public int maximumEnergy1(int[] energy, int k) {
+    public static int maximumEnergy1(int[] energy, int k) {
         //just if we write a n^2 solution it wont work
         // the point to note here is that if we start from any index we will end up fron n - 1 to n - 1 - kth index for sure
         // so we can start from n - 1 to n - 1 - kth index and keep on adding the energy and keep on updating the max energy
