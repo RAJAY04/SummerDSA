@@ -12,45 +12,43 @@ public class RobotCollision {
 
     public static List<Integer> survivedRobotsHealths(int[] positions, int[] healths, String directions) {
         int n = positions.length;
-        List<Integer> ind = new ArrayList<>();
+        int[][] index = new int[n][2];
+        for (int i = 0; i < n; i++) {
+            index[i][0] = positions[i];
+            index[i][1] = i;
+        }
 
+        Arrays.sort(index, (a, b) -> a[0] - b[0]);
+
+        Stack<Integer> stack = new Stack<>();
 
         for (int i = 0; i < n; i++) {
-            ind.add(i);
-        }
-        ind.sort((a, b) -> Integer.compare(positions[a], positions[b]));
-
-        Deque<Integer> stack = new ArrayDeque<>();
-        for (int i : ind) {
-            if (directions.charAt(i) == 'R') {
-                stack.push(i);
+            int idx = index[i][1];
+            if (directions.charAt(idx) == 'R') {
+                stack.push(idx);
             } else {
-
-                while (!stack.isEmpty() && healths[i] > 0) {
-                    int topIndex = stack.peek();
-
-                    if (healths[i] < healths[topIndex]) {
-                        healths[topIndex]--;
-                        healths[i] = 0;
-                    } else if (healths[i] > healths[topIndex]) {
-                        healths[i]--;
-                        healths[stack.pop()] = 0;
+                while (!stack.isEmpty() && healths[idx] > 0) {//while condition is very necessary
+                    if (healths[idx] > healths[stack.peek()]) {
+                        healths[stack.peek()] = 0;
+                        stack.pop();
+                        healths[idx]--;//if a L is there it never goes into the stack, it should either distroy
+                        // itself or elements inside ths stack to proceed to next index
+                    } else if (healths[idx] < healths[stack.peek()]) {
+                        healths[idx] = 0;
+                        healths[stack.peek()]--;
                     } else {
-
+                        healths[idx] = 0;
                         healths[stack.pop()] = 0;
-                        healths[i] = 0;
                     }
                 }
+
             }
         }
-
-        List<Integer> ans = new ArrayList<>();
-        for (int h : healths) {
-            if (h > 0) {
-                ans.add(h);
-            }
+        List<Integer> res = new ArrayList<>();
+        for (int num : healths) {
+            if (num > 0)
+                res.add(num);
         }
-
-        return ans;
+        return res;
     }
 }
