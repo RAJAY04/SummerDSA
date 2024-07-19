@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class LIS {
     public static void main(String[] args) {
-        int[] nums = {10,9,2,5,3,7,101,18};
+        int[] nums = {0, 8, 14, 12, 2, 10, 6, 14, 1, 9, 5, 13, 3, 11, 7, 15};
         System.out.println(lengthOfLIS(nums));
         System.out.println(tabulation(nums));
     }
