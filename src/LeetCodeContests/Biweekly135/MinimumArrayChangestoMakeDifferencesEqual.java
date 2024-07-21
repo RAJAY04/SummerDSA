@@ -12,45 +12,34 @@ public class MinimumArrayChangestoMakeDifferencesEqual {
 
     public static int minChanges(int[] nums, int k) {
         int n = nums.length;
-        int m = n / 2;
-        int[] diff = new int[m];
-        int minDiff = Integer.MAX_VALUE;
-        for(int i = 0 ; i < m ; i++){
-            diff[i] = Math.abs(nums[i] - nums[n - i - 1]);
-            minDiff = Math.min(minDiff,diff[i]);
+        Map<Integer,Integer> curDiffCount = new HashMap<>();//store all the differences with count
+        int[] oneOp = new int[k + 1];//max possible diff in one op
+
+        for(int i = 0 ; i < n / 2; i++){
+            int diff = Math.abs(nums[i] - nums[n - i - 1]);
+            curDiffCount.put(diff,curDiffCount.getOrDefault(diff,0)+1);//store all the diffs
+
+            int minEle = Math.min(nums[i],nums[n - i - 1]);
+            int maxEle = Math.max(nums[i],nums[ n - i - 1]);
+            //two possible ways to achieve max diff with one op
+            int maxDiff = Math.max(k - minEle,maxEle - 0);
+            oneOp[maxDiff]++;//store it
         }
-        Map<Integer,Integer> map = new HashMap<>();
-        for(int i = 0 ; i < m ; i++){
-            map.put(diff[i],map.getOrDefault(diff[i], 0)+ 1);
+        //suffix sum
+        for(int maxAchievalbeDiff = k - 1; maxAchievalbeDiff >= 0 ; maxAchievalbeDiff--){
+            oneOp[maxAchievalbeDiff] += oneOp[maxAchievalbeDiff + 1];
+            //propogate the ans, say 'x' no of pairs can achieve a max diff of 18, then those x pairs also can
+            //achieve diff of 18,17...0(0 is reduntant and need to be subtracted in later steps). so we propogate
+            //such that we can query, for any possible div(not pax possible) what is the max diff that can be achieved
         }
 
-        int maxCount = Integer.MIN_VALUE;
-        int maxCountDiff = 0;
-        for(Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            if(entry.getValue() > maxCount){
-                maxCount = entry.getValue();
-                maxCountDiff = entry.getKey();
-            }
+        int ans = Integer.MAX_VALUE;
+        for(Map.Entry<Integer,Integer> entry: curDiffCount.entrySet()){
+            int diff = entry.getKey(), count = entry.getValue();
+            int oneExtra = oneOp[diff] - count;//subtract 0 count(0 op required)
+            int two = (n / 2) - oneExtra - count;//n/2 - oneOp[diff];
+            ans = Math.min(ans,oneExtra + ( 2 * two));
         }
-
-        int res = 0;
-        for(int i = 0 ; i < m ; i++){
-            int curDiff = Math.abs(nums[i] - nums[n - i - 1]);
-            if(maxCountDiff != curDiff){
-                if(Math.max(nums[i],nums[n - i - 1]) >= maxCountDiff){
-                    res++;
-                }else res += 2;
-            }
-        }
-        int res1 = 0;
-        for(int i = 0 ; i < m ; i++){
-            int curDiff = Math.abs(nums[i] - nums[n - i - 1]);
-            if(minDiff != curDiff){
-                if(Math.max(nums[i],nums[n - i - 1]) >= minDiff){
-                    res++;
-                }else res += 2;
-            }
-        }
-        return res;
+        return ans;
     }
 }
