@@ -74,38 +74,33 @@ public class Main {
             int testCases = in.nextInt();
             while (testCases-- > 0) {
                 int n = in.nextInt();
-                String s = in.nextLine();
-                boolean flag = isValid(s, n);
-                if (flag) {
-                    out.println("YES");
+                int k = in.nextInt();
+                char[][] mat = new char[n][n];
+                for(int i = 0 ;i < n; i++){
+                    for(int j = 0 ;j < n; j++){
+                        mat[i] = in.nextLine().toCharArray();
+                    }
+                }
+                if (n == k) {
+                    out.println(mat[0][0]);
                 } else {
-                    out.println("NO");
+                    char[][] res = new char[n / k][n / k];
+                    for (int i = 0; i < n; i += k) {
+                        for (int j = 0; j < n; j += k) {
+                            res[i / k][j / k] = mat[i][j];
+                        }
+                    }
+                    for (int i = 0; i < res.length; i++) {
+                        for (int j = 0; j < res[0].length; j++) {
+                            out.print(res[i][j]);
+                        }
+                        System.out.println();
+                    }
                 }
             }
             out.close();
         } catch (Exception e) {
             return;
         }
-    }
-
-    public static boolean isValid(String s, int n) {
-        Set<Character> set = new HashSet<Character>();
-        set.add('a');
-        set.add('e');
-        set.add('i');
-        set.add('o');
-        set.add('u');
-
-        int count = 0;
-        for (int i = 0; i < n; i++) {
-            if (set.contains(s.charAt(i))) {
-                count = 0;
-            } else {
-                count++;
-            }
-
-            if (count >= 4) return false;
-        }
-        return true;
     }
 }
