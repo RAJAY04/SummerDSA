@@ -1,5 +1,4 @@
 package CodeChefContests;
-
 import java.util.*;
 import java.lang.*;
 import java.io.*;
@@ -69,18 +68,52 @@ class Codechef
         }
     }
 
-    public static void main (String[] args) throws java.lang.Exception {
+    public static void main(String[] args) {
         try {
             FastReader in = new FastReader();
             FastWriter out = new FastWriter();
-            int x = in.nextInt();
-            int y = in.nextInt();
-            if(y > x)out.println("yes");
-            else out.println("no");
+            int testCases = in.nextInt();
+            while (testCases-- > 0) {
+                int n = in.nextInt();
+                int x = in.nextInt();
+                int[] arr = new int[n];
+                for (int i = 0; i < n; i++) {
+                    arr[i] = in.nextInt();
+                }
+
+                long ans = 0;
+                long surplus = 0;
+                Map<Integer, Integer> map = new TreeMap<>(Collections.reverseOrder());
+                for (int i = 0; i < n; i++) {
+                    map.put(arr[i], map.getOrDefault(arr[i], 0) + 1);
+                }
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    int key = entry.getKey();
+                    int val = entry.getValue();
+                    if (key >= x) {
+                        ans += val;
+                        surplus += (key - x) * val;
+                    } else break;
+                }
+                for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+                    int key = entry.getKey();
+                    int val = entry.getValue();
+                    if (key < x) {
+                        int required = (x - key) * val;
+                        if (surplus >= required) {
+                            surplus -= required;
+                            ans += val;
+                        } else {
+                            ans += surplus / (x - key);
+                            break;
+                        }
+                    }
+                }
+                out.println(ans);
+            }
             out.close();
         } catch (Exception e) {
-            return;
+            e.printStackTrace();
         }
     }
-
 }
